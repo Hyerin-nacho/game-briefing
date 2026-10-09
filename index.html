@@ -1,0 +1,670 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>주간 게임 브리핑</title>
+<meta name="description" content="모바일 MMORPG·수집형 RPG 중심의 주간 게임 기사 요약과 모바일 매출·PC방 순위">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+/* Layout: 한 줄 칼럼 리포트 — 헤더 → 최신 순위(모바일 매출 · PC방) → 주차별 브리핑(과제 포인트 + 분류별 기사 목록), 최신 주차가 위 */
+:root{
+  --bg:#f6f6f4; --surface:#ffffff; --ink:#141414; --sub:#3d3d3b; --muted:#76766f; --line:#e5e5e0; --soft:#efefeb;
+  --accent:#2f56e0; --accent-soft:#e9eefd;
+  --c-mmo:#2f56e0; --c-gacha:#d9416b; --c-mobile:#0d9488; --c-pc:#7c4ddb; --c-biz:#c27a09;
+  --font:"Pretendard Variable","Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121212; --surface:#1b1b1b; --ink:#f0f0ee; --sub:#cfcfcb; --muted:#94948d; --line:#2c2c2a; --soft:#232322;
+  --accent:#7d98ff; --accent-soft:#1d2440;
+  --c-mmo:#7d98ff; --c-gacha:#ff7b9c; --c-mobile:#3cc7b8; --c-pc:#ac8bff; --c-biz:#eaa83c; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121212; --surface:#1b1b1b; --ink:#f0f0ee; --sub:#cfcfcb; --muted:#94948d; --line:#2c2c2a; --soft:#232322;
+  --accent:#7d98ff; --accent-soft:#1d2440;
+  --c-mmo:#7d98ff; --c-gacha:#ff7b9c; --c-mobile:#3cc7b8; --c-pc:#ac8bff; --c-biz:#eaa83c; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0}
+img{max-width:100%}
+html,body{background:var(--bg)}
+body{color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.6;letter-spacing:-.01em;padding-inline:16px;padding-block:40px 72px;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:44px}
+
+/* header */
+header{display:flex;flex-direction:column;gap:10px}
+.kicker{font-size:12.5px;font-weight:600;color:var(--muted);letter-spacing:.02em}
+h1{font-size:clamp(28px,6vw,38px);font-weight:750;letter-spacing:-.04em;line-height:1.2;margin:0}
+.lede{margin:0;color:var(--sub);font-size:15px;max-width:60ch}
+.srcs{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--muted);margin-top:4px}
+.srcs a{text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:1px}
+.srcs a:hover{color:var(--ink);border-color:var(--ink)}
+
+/* section heads */
+.sh{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-bottom:12px;border-bottom:1.5px solid var(--ink)}
+.sh h2{font-size:21px;font-weight:700;letter-spacing:-.03em;margin:0}
+.sh .r{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* ranks */
+.ranks{display:flex;flex-direction:column;gap:16px}
+.rgrid{display:grid;grid-template-columns:minmax(0,1fr);gap:16px}
+.rcard{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.rcard h3{margin:0;font-size:15px;font-weight:700;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:baseline}
+.rcard h3 small{font-size:12px;font-weight:500;color:var(--muted);font-variant-numeric:tabular-nums}
+.tg{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--sub);cursor:pointer;user-select:none;width:max-content}
+.tg input{accent-color:var(--accent);width:15px;height:15px;margin:0}
+ol.rl{list-style:none;margin:0;padding:0;font-variant-numeric:tabular-nums}
+ol.rl.cols{columns:3 200px;column-gap:28px}
+ol.rl.cols2{columns:2 200px;column-gap:28px}
+ol.rl li{display:grid;grid-template-columns:26px minmax(0,1fr) auto;gap:8px;align-items:baseline;padding:6px 0;border-bottom:1px solid var(--soft);font-size:14px;break-inside:avoid}
+ol.rl .n{font-weight:700;color:var(--muted);font-size:13px}
+ol.rl .g{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ol.rl .k{font-size:11.5px;color:var(--muted);white-space:nowrap}
+ol.rl li.hl .g{font-weight:700}
+ol.rl li.hl .n,ol.rl li.hl .k{color:var(--cc);font-weight:700}
+.note{font-size:12px;color:var(--muted);margin:0;line-height:1.55}
+.note a{color:var(--sub)}
+
+/* weeks nav */
+.weeknav{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;color:var(--muted)}
+.weeknav a{text-decoration:none;color:var(--ink);font-weight:600;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 12px}
+.weeknav a:hover{border-color:var(--ink)}
+
+/* week */
+section.week{display:flex;flex-direction:column;gap:22px;scroll-margin-top:16px}
+.point{background:var(--accent-soft);border-radius:10px;padding:14px 18px;font-size:14.5px;line-height:1.7;color:var(--ink)}
+.point b{display:block;font-size:12.5px;font-weight:700;color:var(--accent);margin-bottom:3px}
+.cat{display:flex;flex-direction:column}
+.cat h3{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--sub);margin:0 0 4px;letter-spacing:.01em}
+.cat h3::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--cc)}
+.cat h3 span{font-weight:500;color:var(--muted)}
+ul.items{list-style:none;margin:0;padding:0}
+ul.items li{display:grid;grid-template-columns:92px minmax(0,1fr);gap:4px 18px;padding:14px 0;border-bottom:1px solid var(--line)}
+ul.items li:last-child{border-bottom:0}
+.meta{font-size:12px;color:var(--muted);line-height:1.45;padding-top:2px;font-variant-numeric:tabular-nums}
+.meta b{display:block;font-weight:600;color:var(--sub)}
+.ti{font-size:15.5px;font-weight:650;line-height:1.45;text-decoration:none;color:var(--ink)}
+.ti:hover{text-decoration:underline;text-underline-offset:3px}
+.tag{display:inline-block;margin-left:7px;font-size:11px;font-weight:600;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 5px;vertical-align:2px;white-space:nowrap}
+.sum{margin:3px 0 0;font-size:14px;color:var(--sub);line-height:1.65}
+.c-mmo{--cc:var(--c-mmo)}.c-gacha{--cc:var(--c-gacha)}.c-mobile{--cc:var(--c-mobile)}.c-pc{--cc:var(--c-pc)}.c-biz{--cc:var(--c-biz)}
+
+/* site links */
+.links{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:-18px}
+@media (max-width:720px){.links{grid-template-columns:repeat(2,minmax(0,1fr))}.links a:last-child{grid-column:span 2}}
+.links a{display:flex;flex-direction:column;gap:2px;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:11px 13px;min-width:0;transition:border-color .2s,transform .2s}
+.links a:hover{border-color:var(--ink);transform:translateY(-1px)}
+.ln{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:14px;font-weight:700;color:var(--ink)}
+.ln svg{color:var(--muted);flex:none}
+.ld{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rank-mobile,#rank-pc,section.week,.cat,.digest{scroll-margin-top:16px}
+/* digest */
+.digest{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:6px 20px}
+.digest .dh{display:block;font-size:13px;font-weight:700;color:var(--muted);padding:12px 0 4px}
+.digest dl{margin:0}
+.digest .row{display:grid;grid-template-columns:96px minmax(0,1fr);gap:4px 16px;padding:12px 0;border-top:1px solid var(--soft)}
+.digest .row:first-child{border-top:0}
+.digest dt{display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700;color:var(--sub);height:1.65em;white-space:nowrap}
+.digest dt::before{content:"";width:7px;height:7px;border-radius:2px;background:var(--cc,var(--muted));flex:none}
+.digest .c-rank{--cc:var(--accent)}
+.digest dd{margin:0;font-size:15px;line-height:1.7;color:var(--sub)}
+.digest dd strong{color:var(--ink);font-weight:700;background:linear-gradient(transparent 62%,color-mix(in srgb,var(--cc,var(--accent)) 15%,transparent) 66%);padding:0 1px}
+@media (max-width:480px){.digest .row{grid-template-columns:minmax(0,1fr)}.digest dt{height:auto}}
+footer{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px;line-height:1.6}
+@media (max-width:480px){ul.items li{grid-template-columns:minmax(0,1fr)}.meta{display:flex;gap:8px}.meta b{display:inline}body{padding-block:28px 56px}}
+</style>
+</head>
+<body>
+<!-- 매주 업데이트 시 아래 JSON만 수정합니다 -->
+<script type="application/json" id="briefing-data">
+{
+ "weeks": [
+  {
+   "id": "w20261009",
+   "label": "10월 2주차",
+   "range": "2026.10.05 – 10.09",
+   "summary": [
+    "MMORPG: 카카오게임즈 신작 **도깨비의세계**가 출시 직후 **양대 마켓 인기 1위**에 올랐습니다. 엔씨의 PC MMORPG **아이온 2**는 글로벌 출시 첫날 **스팀 동접 약 40만 명**을 기록했습니다.",
+    "수집형 RPG: **니케 할로윈 업데이트**, **원신 6주년 한정 캐릭터 선택권** 등 장수 게임들의 시즌 이벤트가 이어졌습니다.",
+    "모바일 · 기타: **레인보우 식스 모바일**이 **2027년 1월 15일 서비스 종료**를 발표했고, 사전예약 4,000만 명을 모은 **애니모**가 출시되었습니다.",
+    "PC · 콘솔: **팬텀 블레이드 제로(10월 29일)**, **왈츠 앤 잼(12월 3일)** 등 하반기 신작 출시 일정이 공개되었습니다.",
+    "순위: 10월 9일 기준 구글플레이 매출 1·2위는 **제우스: 오만의 신**과 **리니지M**입니다. 50위 안에 **MMORPG 9종**, **수집형 RPG 3종**이 들어 있습니다."
+   ],
+   "items": [
+    {
+     "cat": "mmo",
+     "src": "인벤",
+     "date": "10.08",
+     "tag": "모바일",
+     "title": "도깨비의세계, 양대 마켓 인기 순위 1위",
+     "url": "https://www.inven.co.kr/webzine/news/?news=321909",
+     "sum": "카카오게임즈의 2.5D MMORPG가 구글 플레이와 앱스토어 인기 1위를 기록했습니다. 회사는 이를 기념해 보상을 지급합니다."
+    },
+    {
+     "cat": "mmo",
+     "src": "디스이즈게임",
+     "date": "10월 초",
+     "tag": "모바일",
+     "title": "뽑기·PK 뺀 MMORPG, 도깨비의 세계",
+     "url": "https://www.thisisgame.com/articles/430540",
+     "sum": "확률형 뽑기와 PK 요소를 제외해 기존 리니지라이크와 다른 방향을 내세운 점을 소개했습니다. 한국 전통 요소를 접목한 홍보도 함께 진행 중입니다."
+    },
+    {
+     "cat": "mmo",
+     "src": "디스이즈게임",
+     "date": "10월 초",
+     "tag": "PC",
+     "title": "엔씨 아이온 2, 글로벌 첫날 스팀 동접 40만 육박",
+     "url": "https://www.thisisgame.com/articles/430691",
+     "sum": "글로벌 정식 서비스 첫날 스팀 동시접속자가 40만 명에 가까웠습니다. 국내 MMORPG의 해외 흥행 가능성을 보여 주는 사례로 주목받고 있습니다."
+    },
+    {
+     "cat": "mmo",
+     "src": "인벤",
+     "date": "10.09",
+     "tag": "PC",
+     "title": "쓰론 앤 리버티 서구권 서비스, 11일부터 엔씨로 이관",
+     "url": "https://www.inven.co.kr/webzine/news/?news=321925",
+     "sum": "아마존 게임즈가 운영하던 서구권 서비스를 엔씨가 직접 맡습니다. 데이터 이전 거부 신청은 10월 30일까지 가능합니다."
+    },
+    {
+     "cat": "mmo",
+     "src": "인벤",
+     "date": "10.08",
+     "tag": "PC",
+     "title": "베타 거친 와우 포에버, 개발 방향 인터뷰",
+     "url": "https://www.inven.co.kr/webzine/news/?news=321912",
+     "sum": "개발진은 베타 피드백을 반영하고 있으며, 수평적 확장과 직업 정체성 유지를 핵심 방향으로 삼았다고 밝혔습니다."
+    },
+    {
+     "cat": "gacha",
+     "src": "인벤",
+     "date": "10.08",
+     "tag": "모바일",
+     "title": "승리의 여신: 니케, 할로윈 이벤트와 신규 스킨",
+     "url": "https://www.inven.co.kr/webzine/news/?news=321911",
+     "sum": "신규 코스튬과 픽업 뽑기, 레이드 일정 등 10월 업데이트 내용이 공개되었습니다."
+    },
+    {
+     "cat": "gacha",
+     "src": "디스이즈게임",
+     "date": "10월 초",
+     "tag": "멀티",
+     "title": "원신 6주년, 첫 한정 캐릭터 선택권 배포",
+     "url": "https://www.thisisgame.com/articles/429875",
+     "sum": "6주년을 맞아 처음으로 한정 캐릭터를 직접 고를 수 있는 선택권과 기념 이벤트를 제공합니다."
+    },
+    {
+     "cat": "gacha",
+     "src": "인벤",
+     "date": "10.08",
+     "tag": "e스포츠",
+     "title": "에픽세븐 E7WC 2026, 10일 그룹 스테이지 시작",
+     "url": "https://www.inven.co.kr/webzine/news/?news=321906",
+     "sum": "총상금 10만 달러 규모의 대회이며, 결승은 11월 28일 잠실에서 열립니다."
+    },
+    {
+     "cat": "gacha",
+     "src": "디스이즈게임",
+     "date": "10월 초",
+     "tag": "모바일",
+     "title": "트릭컬 리바이브 오케스트라 공연 현장",
+     "url": "https://www.thisisgame.com/articles/430659",
+     "sum": "모바일 수집형 RPG 트릭컬 리바이브의 음악을 오케스트라로 연주한 공연 현장을 사진으로 전했습니다."
+    },
+    {
+     "cat": "mobile",
+     "src": "인벤",
+     "date": "10.09",
+     "tag": "슈팅",
+     "title": "레인보우 식스 모바일, 2027년 1월 15일 서비스 종료",
+     "url": "https://www.inven.co.kr/webzine/news/?news=321926",
+     "sum": "유비소프트가 모바일 전술 슈팅 게임의 서비스 종료를 발표했습니다. 결제·환불 안내는 추후 공지됩니다."
+    },
+    {
+     "cat": "mobile",
+     "src": "디스이즈게임",
+     "date": "10월 초",
+     "tag": "신작",
+     "title": "사전예약 4,000만 '애니모', 출시 초반 반응",
+     "url": "https://www.thisisgame.com/articles/430455",
+     "sum": "대규모 사전예약을 기록한 신작의 출시 초반 스트리밍 반응을 정리했습니다."
+    },
+    {
+     "cat": "mobile",
+     "src": "인벤",
+     "date": "10.08",
+     "tag": "퍼즐",
+     "title": "퍼즐 어드벤처 '베이비 모니터 대탈출', 11월 24일 출시",
+     "url": "https://www.inven.co.kr/webzine/news/?news=321907",
+     "sum": "육아를 소재로 한 1인용 퍼즐 어드벤처로, PC와 iOS·Android에 동시 출시되며 한국어를 지원합니다."
+    },
+    {
+     "cat": "pc",
+     "src": "인벤",
+     "date": "10.09",
+     "tag": "액션",
+     "title": "팬텀 블레이드 제로, 10월 29일 출시",
+     "url": "https://www.inven.co.kr/webzine/news/?news=321890",
+     "sum": "플레이타임은 약 30시간이며 무기 30종과 고난도 모드를 갖췄다고 개발진이 밝혔습니다. 6시간 시연기도 함께 공개되었습니다."
+    },
+    {
+     "cat": "pc",
+     "src": "디스이즈게임",
+     "date": "10월 초",
+     "tag": "리뷰",
+     "title": "[리뷰] 기어스 오브 워: E-Day",
+     "url": "https://www.thisisgame.com/articles/430738",
+     "sum": "시리즈 원조의 재미를 되살렸다는 평가와 함께 아쉬운 점도 짚은 리뷰입니다."
+    },
+    {
+     "cat": "pc",
+     "src": "디스이즈게임",
+     "date": "10월 초",
+     "tag": "호러",
+     "title": "사일런트 힐 신작 '타운폴', 스트리밍 반응",
+     "url": "https://www.thisisgame.com/articles/430647",
+     "sum": "사일런트 힐 시리즈 신작의 출시 초반 스트리밍 반응을 정리했습니다."
+    },
+    {
+     "cat": "pc",
+     "src": "인벤",
+     "date": "10.09",
+     "tag": "신작",
+     "title": "크래프톤 자회사 신작 '왈츠 앤 잼', 12월 3일 출시",
+     "url": "https://www.inven.co.kr/webzine/news/?news=321922",
+     "sum": "플라이웨이게임즈의 신작이 PC, PS5, 닌텐도 스위치2로 출시됩니다."
+    },
+    {
+     "cat": "biz",
+     "src": "디스이즈게임",
+     "date": "10월 초",
+     "tag": "행사",
+     "title": "호요버스 종합 축제 '호요랜드 2026'",
+     "url": "https://www.thisisgame.com/articles/430654",
+     "sum": "원신, 붕괴: 스타레일 등 호요버스 게임들을 한자리에서 선보이는 팬 축제가 열립니다."
+    },
+    {
+     "cat": "biz",
+     "src": "디스이즈게임",
+     "date": "10월 초",
+     "tag": "인터뷰",
+     "title": "[인터뷰] 한국을 담은 워프레임, 13년의 여정",
+     "url": "https://www.thisisgame.com/articles/430702",
+     "sum": "한국을 배경으로 한 콘텐츠를 준비한 워프레임 개발진이 13년간의 서비스와 새 도전을 이야기했습니다."
+    }
+   ]
+  }
+ ],
+ "ranks": {
+  "mobile": {
+   "asof": "2026.10.09 21:13",
+   "url": "https://game.mobileindex.com/chart/real?tag=tc1061&mkt=all&ct=kr&rc=gross",
+   "list": [
+    [
+     1,
+     "제우스: 오만의 신",
+     "MMORPG"
+    ],
+    [
+     2,
+     "리니지M",
+     "MMORPG"
+    ],
+    [
+     3,
+     "이클립스: 더 어웨이크닝",
+     "MMORPG"
+    ],
+    [
+     4,
+     "WOS: 화이트아웃 서바이벌",
+     "전략"
+    ],
+    [
+     5,
+     "킹샷",
+     "전략"
+    ],
+    [
+     6,
+     "로블록스",
+     "샌드박스"
+    ],
+    [
+     7,
+     "가십하버",
+     "머지"
+    ],
+    [
+     8,
+     "로얄 매치",
+     "퍼즐"
+    ],
+    [
+     9,
+     "메이플 키우기",
+     "방치형"
+    ],
+    [
+     10,
+     "솔: 인챈트",
+     "MMORPG"
+    ],
+    [
+     11,
+     "명조: 워더링 웨이브",
+     "수집형"
+    ],
+    [
+     12,
+     "운빨존많겜",
+     "디펜스"
+    ],
+    [
+     13,
+     "오딘: 발할라 라이징",
+     "MMORPG"
+    ],
+    [
+     14,
+     "도깨비의세계",
+     "MMORPG"
+    ],
+    [
+     15,
+     "한게임포커 클래식",
+     "카드"
+    ],
+    [
+     16,
+     "라스트 워: 서바이벌",
+     "전략"
+    ],
+    [
+     17,
+     "트릭컬 리바이브",
+     "수집형"
+    ],
+    [
+     18,
+     "후더덕 서바이벌",
+     "로그라이크 디펜스"
+    ],
+    [
+     19,
+     "열혈강호: 넥스트",
+     "MMORPG"
+    ],
+    [
+     20,
+     "테이스티 트레블",
+     "머지"
+    ],
+    [
+     21,
+     "승리의 여신: 니케",
+     "수집형"
+    ],
+    [
+     22,
+     "탑 로드",
+     "확인 필요"
+    ],
+    [
+     23,
+     "FC 모바일",
+     "스포츠"
+    ],
+    [
+     24,
+     "로그W: 리메인즈 오브 갓",
+     "확인 필요"
+    ],
+    [
+     25,
+     "삼국지: 천하결전",
+     "전략"
+    ],
+    [
+     26,
+     "꿈의 정원",
+     "퍼즐"
+    ],
+    [
+     27,
+     "씨사이드 익스케이프",
+     "머지"
+    ],
+    [
+     28,
+     "컴투스프로야구V26",
+     "스포츠"
+    ],
+    [
+     29,
+     "라스트 어사일럼: 페스트",
+     "전략"
+    ],
+    [
+     30,
+     "로얄 킹덤",
+     "퍼즐"
+    ],
+    [
+     31,
+     "피망 포커",
+     "카드"
+    ],
+    [
+     32,
+     "라스트 Z: 서바이벌 슈터",
+     "전략"
+    ],
+    [
+     33,
+     "Pokémon GO",
+     "AR"
+    ],
+    [
+     34,
+     "아쿠아랜드: 크레이지 서바이벌",
+     "전략"
+    ],
+    [
+     35,
+     "냥코 대전쟁",
+     "디펜스"
+    ],
+    [
+     36,
+     "할리우드 머지",
+     "머지"
+    ],
+    [
+     37,
+     "쿠키런 키우기",
+     "방치형"
+    ],
+    [
+     38,
+     "협타디: 협동 타워 디펜스",
+     "디펜스"
+    ],
+    [
+     39,
+     "리니지W",
+     "MMORPG"
+    ],
+    [
+     40,
+     "마비노기 모바일",
+     "MMORPG"
+    ],
+    [
+     41,
+     "미스터리 타운",
+     "머지"
+    ],
+    [
+     42,
+     "뚜까펫: 서바이벌",
+     "서바이벌"
+    ],
+    [
+     43,
+     "브롤스타즈",
+     "대전"
+    ],
+    [
+     44,
+     "FC 온라인 M",
+     "스포츠"
+    ],
+    [
+     45,
+     "캔디크러쉬사가",
+     "퍼즐"
+    ]
+   ]
+  },
+  "pc": {
+   "asof": "2026.10.07",
+   "list": [
+    [
+     1,
+     "리그 오브 레전드",
+     "33.12%"
+    ],
+    [
+     2,
+     "발로란트",
+     "9.56%"
+    ],
+    [
+     3,
+     "FC온라인",
+     "9.44%"
+    ],
+    [
+     4,
+     "배틀그라운드",
+     "6.99%"
+    ],
+    [
+     5,
+     "오버워치",
+     "6.15%"
+    ],
+    [
+     6,
+     "리니지 클래식",
+     "5.57%"
+    ],
+    [
+     7,
+     "서든어택",
+     "5.26%"
+    ],
+    [
+     8,
+     "메이플스토리",
+     "2.89%"
+    ],
+    [
+     9,
+     "Roblox",
+     "2.73%"
+    ],
+    [
+     10,
+     "로스트아크",
+     "1.86%"
+    ]
+   ]
+  }
+ }
+}
+</script>
+
+<div class="wrap">
+  <header>
+    <span class="kicker">게임 장르 과제 · 매주 월요일 업데이트</span>
+    <h1>주간 게임 브리핑</h1>
+    <p class="lede">모바일 MMORPG와 수집형 RPG를 중심으로, 다른 장르와 PC·콘솔 신작, 업계 소식까지 한 주의 게임 기사를 요약합니다.</p>
+  </header>
+
+  <nav class="links" aria-label="사이트 바로가기">
+    <a href="https://game.mobileindex.com/chart/real?tag=tc1061&amp;mkt=all&amp;ct=kr&amp;rc=gross" target="_blank" rel="noopener"><span class="ln">모바일인덱스<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 2h6v6M10 2L3 9"/></svg></span><span class="ld">실시간 매출 순위</span></a>
+    <a href="https://www.gametrics.com" target="_blank" rel="noopener"><span class="ln">게임트릭스<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 2h6v6M10 2L3 9"/></svg></span><span class="ld">PC방 점유율 순위</span></a>
+    <a href="https://www.thelog.co.kr/index.do" target="_blank" rel="noopener"><span class="ln">더로그<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 2h6v6M10 2L3 9"/></svg></span><span class="ld">PC방 게임 통계</span></a>
+    <a href="https://www.thisisgame.com" target="_blank" rel="noopener"><span class="ln">디스이즈게임<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 2h6v6M10 2L3 9"/></svg></span><span class="ld">게임 웹진</span></a>
+    <a href="https://www.inven.co.kr/webzine/news/" target="_blank" rel="noopener"><span class="ln">인벤<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 2h6v6M10 2L3 9"/></svg></span><span class="ld">게임 뉴스 · 커뮤니티</span></a>
+  </nav>
+
+  <section class="ranks" aria-labelledby="rk">
+    <div class="sh"><h2 id="rk">최신 순위</h2><span class="r">과제 대상(MMORPG · 수집형)은 굵게 표시</span></div>
+    <div class="rgrid">
+      <div class="rcard" id="rank-mobile">
+        <h3>모바일 매출 · 구글플레이 <small id="mAsof"></small></h3>
+        <ol class="rl cols" id="mList"></ol>
+        <p class="note">출처 <a id="mSrc" href="#" target="_blank" rel="noopener">모바일인덱스 GAME</a>. 장르는 기사·스토어 정보를 바탕으로 정리했습니다.</p>
+      </div>
+      <div class="rcard" id="rank-pc">
+        <h3>PC방 점유율 <small id="pAsof"></small></h3>
+        <ol class="rl cols2" id="pList"></ol>
+        <p class="note">출처 <a href="https://www.gametrics.com" target="_blank" rel="noopener">게임트릭스</a>. 더로그 순위는 로그인 후 확인할 수 있습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <nav class="weeknav" id="weeknav" aria-label="주차 목록"></nav>
+  <div id="weeks" style="display:flex;flex-direction:column;gap:52px"></div>
+
+  <footer>매주 월요일 아침에 지난주(월~일) 기사와 최신 순위로 업데이트됩니다. 요약은 각 웹진 기사를 바탕으로 직접 작성했으며, 자세한 내용은 기사 제목을 눌러 원문에서 확인하시기 바랍니다.</footer>
+</div>
+
+<script>
+(function(){
+const D = JSON.parse(document.getElementById('briefing-data').textContent);
+const CATS = [['mmo','MMORPG'],['gacha','수집형 RPG'],['mobile','모바일 · 기타 장르'],['pc','PC · 콘솔'],['biz','업계 · 행사']];
+const HL = {'MMORPG':'c-mmo','수집형':'c-gacha'};
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+const bold = t => esc(t).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+const SUMCAT = {'MMORPG':'c-mmo','수집형 RPG':'c-gacha','모바일 · 기타':'c-mobile','PC · 콘솔':'c-pc','업계 · 행사':'c-biz','순위':'c-rank'};
+function sumRow(t){ const k = t.indexOf(':'); if (k > 0 && k < 14) { const lab = t.slice(0,k).trim(); return `<div class="row ${SUMCAT[lab]||''}"><dt>${esc(lab)}</dt><dd>${bold(t.slice(k+1).trim())}</dd></div>`; } return `<div class="row"><dt></dt><dd>${bold(t)}</dd></div>`; }
+function renderMobile(){
+  const m = D.ranks.mobile;
+  $('#mAsof').textContent = m.asof + ' 기준';
+  $('#mSrc').href = m.url || 'https://www.mobileindex.com';
+  $('#mList').innerHTML = m.list.map(r =>
+    `<li class="${HL[r[2]] ? 'hl ' + HL[r[2]] : ''}"><span class="n">${r[0]}</span><span class="g">${esc(r[1])}</span><span class="k">${esc(r[2])}</span></li>`).join('');
+}
+const p = D.ranks.pc;
+$('#pAsof').textContent = p.asof + ' 기준';
+$('#pList').innerHTML = p.list.map(r => `<li><span class="n">${r[0]}</span><span class="g">${esc(r[1])}</span><span class="k">${esc(r[2])}</span></li>`).join('');
+renderMobile();
+
+$('#weeknav').innerHTML = D.weeks.length > 1 ? '<span>주차</span>' + D.weeks.map(w => `<a href="#${esc(w.id)}">${esc(w.label)}</a>`).join('') : '';
+$('#weeknav').hidden = D.weeks.length < 2;
+
+$('#weeks').innerHTML = D.weeks.map(w => {
+  const cats = CATS.map(([k, label]) => {
+    const items = w.items.filter(i => i.cat === k);
+    if (!items.length) return '';
+    return `<div class="cat c-${k}" id="${esc(w.id)}-${k}"><h3>${label} <span>${items.length}</span></h3><ul class="items">` + items.map(i => `
+      <li><div class="meta"><b>${esc(i.src)}</b>${esc(i.date)}</div>
+      <div><a class="ti" href="${esc(i.url)}" target="_blank" rel="noopener">${esc(i.title)}</a>${i.tag ? `<span class="tag">${esc(i.tag)}</span>` : ''}
+      <p class="sum">${esc(i.sum)}</p></div></li>`).join('') + '</ul></div>';
+  }).join('');
+  return `<section class="week" id="${esc(w.id)}">
+    <div class="sh"><h2>${esc(w.label)}</h2><span class="r">${esc(w.range)} · 기사 ${w.items.length}건</span></div>
+    ${(w.summary||[]).length ? `<div class="digest" id="${esc(w.id)}-sum"><b class="dh">이번 주 요약</b><dl>${w.summary.map(sumRow).join('')}</dl></div>` : ''}
+    ${cats}</section>`;
+}).join('');
+})();
+</script>
+</body>
+</html>
