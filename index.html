@@ -25,6 +25,7 @@
 *{box-sizing:border-box}
 body{margin:0}
 img{max-width:100%}
+[hidden]{display:none!important}
 html,body{background:var(--bg)}
 body{color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.6;letter-spacing:-.01em;padding-inline:16px;padding-block:40px 72px;-webkit-font-smoothing:antialiased}
 a{color:inherit}
@@ -110,6 +111,58 @@ ul.items li:last-child{border-bottom:0}
 .digest dd{margin:0;font-size:15px;line-height:1.7;color:var(--sub)}
 .digest dd strong{color:var(--ink);font-weight:700;background:linear-gradient(transparent 62%,color-mix(in srgb,var(--cc,var(--accent)) 15%,transparent) 66%);padding:0 1px}
 @media (max-width:480px){.digest .row{grid-template-columns:minmax(0,1fr)}.digest dt{height:auto}}
+
+/* play notes */
+.notes{display:flex;flex-direction:column;gap:16px}
+.nwrap{display:grid;grid-template-columns:250px minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:720px){.nwrap{grid-template-columns:minmax(0,1fr)}}
+.nside,.ned{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;min-width:0}
+.nside{display:flex;flex-direction:column;gap:8px}
+.fl{font-size:12.5px;font-weight:700;color:var(--sub)}
+.fl span{color:var(--muted);font-weight:500}
+.pick{display:flex;gap:6px}
+input,textarea{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 11px;width:100%;min-width:0;font-size:14px;letter-spacing:-.01em}
+textarea{resize:vertical;line-height:1.6}
+input:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+input::placeholder,textarea::placeholder{color:var(--muted);opacity:.8}
+.btn{font:inherit;font-size:13px;font-weight:700;border:1px solid var(--ink);background:var(--ink);color:var(--bg);border-radius:8px;padding:0 14px;cursor:pointer;white-space:nowrap;height:38px}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line);height:34px;padding:0 12px}
+.btn.ghost:hover{border-color:var(--ink)}
+.btn.danger{color:#d23c3c}
+.lnk{font:inherit;font-size:12.5px;background:none;border:0;padding:0;color:var(--sub);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.hint{margin:0;font-size:12px;color:var(--muted)}
+.nlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.nlist li button{width:100%;text-align:left;font:inherit;background:none;border:0;border-top:1px solid var(--soft);padding:9px 2px;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 8px;color:var(--ink)}
+.nlist li:first-child button{border-top:0}
+.nlist li button[aria-current="true"] .nn{color:var(--accent)}
+.nlist .nn{font-size:14px;font-weight:650;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nlist .ns{font-size:12px;color:#e0a100;letter-spacing:1px}
+.nlist .nd{grid-column:1/-1;font-size:11.5px;color:var(--muted)}
+.nlist .none{font-size:12.5px;color:var(--muted);padding:6px 0}
+.bk{display:flex;flex-wrap:wrap;gap:6px 12px;border-top:1px solid var(--line);padding-top:10px;margin-top:4px}
+.ned{display:flex;flex-direction:column}
+.empty{display:flex;flex-direction:column;gap:4px;align-items:center;text-align:center;padding:48px 16px;color:var(--muted);font-size:13.5px}
+.empty b{color:var(--sub);font-size:15px}
+#noteForm{display:flex;flex-direction:column;gap:14px}
+.nh{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.nh h3{margin:0;font-size:20px;font-weight:750;letter-spacing:-.03em}
+.sm{font-size:12.5px;color:var(--muted)}
+.stars{display:flex;gap:2px}
+.stars button{font:inherit;background:none;border:0;padding:2px;cursor:pointer;line-height:0;color:var(--line)}
+.stars button.on{color:#f0b400}
+.stars svg{width:24px;height:24px;fill:currentColor}
+.f{display:flex;flex-direction:column;gap:6px;min-width:0}
+.f > span{font-size:12.5px;font-weight:700;color:var(--sub)}
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:520px){.g2{grid-template-columns:minmax(0,1fr)}}
+.nf{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:12px}
+.acts{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.confirm{font-size:12.5px;color:var(--sub);display:inline-flex;gap:8px;align-items:center}
+ol.rl li.gm{cursor:pointer;border-radius:4px}
+ol.rl li.gm:hover .g{text-decoration:underline;text-underline-offset:3px}
+ol.rl li.has .g::after{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:#f0b400;margin-left:6px;vertical-align:2px}
+.ntoast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,10px);opacity:0;background:var(--ink);color:var(--bg);font-size:13px;font-weight:700;padding:9px 16px;border-radius:999px;transition:opacity .2s,transform .3s;pointer-events:none;z-index:30}
+.ntoast.on{opacity:1;transform:translate(-50%,0)}
 footer{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px;line-height:1.6}
 @media (max-width:480px){ul.items li{grid-template-columns:minmax(0,1fr)}.meta{display:flex;gap:8px}.meta b{display:inline}body{padding-block:28px 56px}}
 </style>
@@ -608,12 +661,68 @@ footer{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padd
       <div class="rcard" id="rank-mobile">
         <h3>모바일 매출 · 구글플레이 <small id="mAsof"></small></h3>
         <ol class="rl cols" id="mList"></ol>
-        <p class="note">출처 <a id="mSrc" href="#" target="_blank" rel="noopener">모바일인덱스 GAME</a>. 장르는 기사·스토어 정보를 바탕으로 정리했습니다.</p>
+        <p class="note">출처 <a id="mSrc" href="#" target="_blank" rel="noopener">모바일인덱스 GAME</a>. 장르는 기사·스토어 정보를 바탕으로 정리했습니다. 게임 이름을 누르면 플레이 노트를 쓸 수 있습니다.</p>
       </div>
       <div class="rcard" id="rank-pc">
         <h3>PC방 점유율 <small id="pAsof"></small></h3>
         <ol class="rl cols2" id="pList"></ol>
         <p class="note">출처 <a href="https://www.gametrics.com" target="_blank" rel="noopener">게임트릭스</a>. 더로그 순위는 로그인 후 확인할 수 있습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="notes" id="notes" aria-labelledby="nt">
+    <div class="sh"><h2 id="nt">플레이 노트</h2><span class="r">이 기기의 브라우저에 자동 저장됩니다</span></div>
+    <div class="nwrap">
+      <aside class="nside">
+        <label class="fl" for="gameInput">게임 선택</label>
+        <div class="pick">
+          <input id="gameInput" list="gameOpts" placeholder="게임 이름 검색 또는 직접 입력" autocomplete="off">
+          <button type="button" class="btn" id="openNote">열기</button>
+        </div>
+        <datalist id="gameOpts"></datalist>
+        <p class="hint">순위표에서 게임 이름을 눌러도 바로 열립니다.</p>
+        <div class="fl" style="margin-top:6px">내 노트 <span id="noteCount"></span></div>
+        <ul class="nlist" id="noteList"></ul>
+        <div class="bk" id="backupRow">
+          <button type="button" class="lnk" id="exportAll">전체 노트 저장(.md)</button>
+          <button type="button" class="lnk" id="backupJson">백업 파일 저장</button>
+          <label class="lnk" for="importJson">백업 불러오기</label>
+          <input type="file" id="importJson" accept="application/json,.json" hidden>
+        </div>
+      </aside>
+      <div class="ned" id="editor">
+        <div class="empty" id="emptyState">
+          <b>아직 열린 노트가 없습니다</b>
+          <span>왼쪽에서 게임을 고르거나, 순위표에서 게임 이름을 눌러 플레이 후기를 적어 보세요.</span>
+        </div>
+        <form id="noteForm" hidden autocomplete="off">
+          <div class="nh">
+            <div><h3 id="nGame"></h3><span class="sm" id="nMeta"></span></div>
+            <div class="stars" id="stars" role="radiogroup" aria-label="별점"></div>
+          </div>
+          <div class="g2">
+            <label class="f"><span>플레이 날짜</span><input type="date" id="f_date"></label>
+            <label class="f"><span>플레이 시간</span><input id="f_time" placeholder="예: 2시간, 레벨 30까지"></label>
+          </div>
+          <label class="f"><span>한 줄 평</span><input id="f_one" placeholder="이 게임을 한 문장으로 소개한다면?"></label>
+          <label class="f"><span>장르 특징</span><textarea id="f_genre" rows="3" placeholder="성장 방식, 전투, 자동사냥, 길드·PvP 등 이 장르다운 점"></textarea></label>
+          <div class="g2">
+            <label class="f"><span>좋았던 점</span><textarea id="f_good" rows="4"></textarea></label>
+            <label class="f"><span>아쉬운 점</span><textarea id="f_bad" rows="4"></textarea></label>
+          </div>
+          <label class="f"><span>과금 구조 · BM</span><textarea id="f_bm" rows="3" placeholder="패스, 뽑기, 패키지 가격, 무과금으로 할 만한지 등"></textarea></label>
+          <label class="f"><span>자유 메모</span><textarea id="f_memo" rows="4"></textarea></label>
+          <div class="nf">
+            <span class="sm" id="saved">자동 저장</span>
+            <div class="acts">
+              <button type="button" class="btn ghost" id="copyNote">복사</button>
+              <button type="button" class="btn ghost dl" id="dlNote">파일로 저장</button>
+              <button type="button" class="btn ghost danger" id="delNote">삭제</button>
+              <span class="confirm" id="delConfirm" hidden>정말 삭제할까요? <button type="button" class="lnk" id="delYes">삭제</button> <button type="button" class="lnk" id="delNo">취소</button></span>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </section>
@@ -664,6 +773,83 @@ $('#weeks').innerHTML = D.weeks.map(w => {
     ${(w.summary||[]).length ? `<div class="digest" id="${esc(w.id)}-sum"><b class="dh">이번 주 요약</b><dl>${w.summary.map(sumRow).join('')}</dl></div>` : ''}
     ${cats}</section>`;
 }).join('');
+})();
+</script>
+<div class="ntoast" id="ntoast" role="status" aria-live="polite"></div>
+<script>
+(function(){
+const D = JSON.parse(document.getElementById('briefing-data').textContent);
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const KEY = 'game-briefing-notes-v1';
+const FIELDS = ['date','time','one','genre','good','bad','bm','memo'];
+const LABEL = {date:'플레이 날짜',time:'플레이 시간',one:'한 줄 평',genre:'장르 특징',good:'좋았던 점',bad:'아쉬운 점',bm:'과금 구조 · BM',memo:'자유 메모'};
+const CAN_DL = !/claude\.ai|claudeusercontent|anthropic/.test(location.hostname);
+let N = {}; try { N = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e) { N = {}; }
+const persist = () => { try { localStorage.setItem(KEY, JSON.stringify(N)); return true; } catch(e) { return false; } };
+let cur = null, timer = null;
+
+const info = {};
+D.ranks.mobile.list.forEach(r => info[r[1]] = {rank:'모바일 매출 ' + r[0] + '위', genre:r[2]});
+D.ranks.pc.list.forEach(r => { if (!info[r[1]]) info[r[1]] = {rank:'PC방 ' + r[0] + '위', genre:''}; });
+$('#gameOpts').innerHTML = Object.keys(info).map(n => `<option value="${esc(n)}"></option>`).join('');
+if (!CAN_DL) { document.querySelectorAll('.dl,#exportAll,#backupJson,label[for="importJson"]').forEach(e => e.hidden = true); $('#backupRow').hidden = true; }
+
+const STAR = '<svg viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></svg>';
+function stars(n){ $('#stars').innerHTML = [1,2,3,4,5].map(i => `<button type="button" role="radio" aria-checked="${i===n}" aria-label="별 ${i}개" data-star="${i}" class="${i<=n?'on':''}">${STAR}</button>`).join(''); }
+const fmt = t => { if (!t) return ''; const d = new Date(t); return (d.getMonth()+1) + '.' + String(d.getDate()).padStart(2,'0') + ' ' + String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0'); };
+
+function renderList(){
+  const names = Object.keys(N).sort((a,b) => (N[b].updated||0) - (N[a].updated||0));
+  $('#noteCount').textContent = names.length ? names.length + '개' : '';
+  $('#noteList').innerHTML = names.length ? names.map(n => `<li><button type="button" data-note="${esc(n)}" aria-current="${n===cur}"><span class="nn">${esc(n)}</span><span class="ns">${'★'.repeat(N[n].rating||0)}</span><span class="nd">${esc(N[n].one || '한 줄 평 없음')} · ${fmt(N[n].updated)}</span></button></li>`).join('') : '<li class="none">아직 쓴 노트가 없습니다.</li>';
+  document.querySelectorAll('#mList li, #pList li').forEach(li => { const g = li.querySelector('.g'); if (!g) return; const n = g.textContent; li.classList.add('gm'); li.dataset.game = n; li.title = '플레이 노트 열기'; li.classList.toggle('has', !!N[n]); });
+}
+function open(name){
+  name = String(name || '').trim(); if (!name) return;
+  cur = name;
+  const n = N[name] || {};
+  $('#emptyState').hidden = true; $('#noteForm').hidden = false; $('#delConfirm').hidden = true;
+  $('#nGame').textContent = name;
+  const i = info[name]; $('#nMeta').textContent = i ? [i.genre, i.rank].filter(Boolean).join(' · ') : '직접 추가한 게임';
+  FIELDS.forEach(f => $('#f_' + f).value = n[f] || '');
+  if (!n.date && !N[name]) $('#f_date').value = new Date().toISOString().slice(0,10);
+  stars(n.rating || 0);
+  $('#saved').textContent = N[name] ? '마지막 저장 ' + fmt(n.updated) : '입력하면 자동 저장됩니다';
+  renderList();
+  $('#notes').scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block:'start'});
+}
+function save(){
+  if (!cur) return;
+  const n = N[cur] || {}; FIELDS.forEach(f => n[f] = $('#f_' + f).value);
+  n.updated = Date.now(); N[cur] = n;
+  $('#saved').textContent = persist() ? '저장됨 ' + fmt(n.updated) : '이 브라우저에서는 저장할 수 없습니다';
+  renderList();
+}
+const asText = name => { const n = N[name] || {}; return `# ${name}\n` + (n.rating ? `별점: ${'★'.repeat(n.rating)}${'☆'.repeat(5-n.rating)}\n` : '') + FIELDS.filter(f => n[f]).map(f => `\n## ${LABEL[f]}\n${n[f]}`).join('\n') + '\n'; };
+function download(name, text, type){ const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([text], {type})); a.download = name; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500); }
+let tt; function toast(m){ const t = $('#ntoast'); t.textContent = m; t.classList.add('on'); clearTimeout(tt); tt = setTimeout(() => t.classList.remove('on'), 1800); }
+
+$('#noteForm').addEventListener('input', () => { $('#saved').textContent = '저장 중…'; clearTimeout(timer); timer = setTimeout(save, 400); });
+$('#noteForm').addEventListener('submit', e => e.preventDefault());
+$('#openNote').addEventListener('click', () => open($('#gameInput').value));
+$('#gameInput').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); open(e.target.value); } });
+document.addEventListener('click', e => {
+  const st = e.target.closest('[data-star]'); if (st && cur) { const v = +st.dataset.star; const n = N[cur] || {}; n.rating = n.rating === v ? 0 : v; N[cur] = n; stars(n.rating); save(); return; }
+  const nb = e.target.closest('[data-note]'); if (nb) { open(nb.dataset.note); return; }
+  const row = e.target.closest('li.gm'); if (row) { open(row.dataset.game); return; }
+});
+$('#copyNote').addEventListener('click', () => { const t = asText(cur); const done = () => toast('노트를 복사했습니다'); try { navigator.clipboard.writeText(t).then(done, () => fallback(t)); } catch(e) { fallback(t); } });
+function fallback(t){ const ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); toast('노트를 복사했습니다'); } catch(e) { toast('복사할 수 없습니다'); } ta.remove(); }
+$('#dlNote').addEventListener('click', () => download(cur.replace(/[\\/:*?"<>|]/g,'') + ' 플레이 노트.md', asText(cur), 'text/markdown'));
+$('#exportAll').addEventListener('click', () => { const ks = Object.keys(N); if (!ks.length) { toast('저장할 노트가 없습니다'); return; } download('플레이 노트 전체.md', ks.map(asText).join('\n---\n\n'), 'text/markdown'); });
+$('#backupJson').addEventListener('click', () => download('플레이노트-백업.json', JSON.stringify(N, null, 1), 'application/json'));
+$('#importJson').addEventListener('change', e => { const f = e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = () => { try { const d = JSON.parse(r.result); if (!d || typeof d !== 'object') throw 0; Object.keys(d).forEach(k => { if (!N[k] || (d[k].updated||0) > (N[k].updated||0)) N[k] = d[k]; }); persist(); renderList(); toast('백업을 불러왔습니다'); } catch(err) { toast('백업 파일을 읽을 수 없습니다'); } e.target.value = ''; }; r.readAsText(f); });
+$('#delNote').addEventListener('click', () => { $('#delConfirm').hidden = false; });
+$('#delNo').addEventListener('click', () => { $('#delConfirm').hidden = true; });
+$('#delYes').addEventListener('click', () => { delete N[cur]; persist(); cur = null; $('#noteForm').hidden = true; $('#emptyState').hidden = false; renderList(); toast('노트를 삭제했습니다'); });
+
+renderList();
 })();
 </script>
 </body>
