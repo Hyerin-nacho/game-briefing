@@ -71,9 +71,21 @@ ol.rl li.hl .n,ol.rl li.hl .k{color:var(--cc);font-weight:700}
 .note a{color:var(--sub)}
 
 /* weeks nav */
-.weeknav{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;color:var(--muted)}
-.weeknav a{text-decoration:none;color:var(--ink);font-weight:600;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 12px}
-.weeknav a:hover{border-color:var(--ink)}
+.weeknav{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;scroll-margin-top:16px}
+.wbtn{font:inherit;font-size:13px;font-weight:700;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:999px;height:36px;padding:0 14px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.wbtn:hover:not(:disabled){border-color:var(--ink)}
+.wbtn:disabled{opacity:.35;cursor:default}
+.wmid{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0;text-align:center}
+.wmid b{font-size:13px;font-weight:700;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.wdots{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.wdots button{width:8px;height:8px;border-radius:50%;border:0;padding:0;background:var(--line);cursor:pointer}
+.wdots button[aria-current="true"]{background:var(--ink);width:20px;border-radius:4px}
+@media (max-width:480px){.wbtn .wl{display:none}.wbtn{padding:0 12px}}
+.wnext{display:flex;justify-content:center;padding-top:4px}
+#weeks{touch-action:pan-y}
+@keyframes wIn{from{opacity:0;transform:translateX(var(--dx,0))}to{opacity:1;transform:none}}
+section.week.slide{animation:wIn .28s ease-out}
+@media (prefers-reduced-motion: reduce){section.week.slide{animation:none}}
 
 /* week */
 section.week{display:flex;flex-direction:column;gap:22px;scroll-margin-top:16px}
@@ -1116,7 +1128,11 @@ footer{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padd
     </div>
   </section>
 
-  <nav class="weeknav" id="weeknav" aria-label="주차 목록"></nav>
+  <nav class="weeknav" id="weeknav" aria-label="주차 넘기기">
+    <button type="button" class="wbtn" id="wPrev" aria-label="지난주 기사"><span aria-hidden="true">←</span><span class="wl">지난주</span></button>
+    <div class="wmid"><b id="wNow"></b><div class="wdots" id="wDots"></div></div>
+    <button type="button" class="wbtn" id="wNext" aria-label="다음 주 기사"><span class="wl">다음 주</span><span aria-hidden="true">→</span></button>
+  </nav>
   <div id="weeks" style="display:flex;flex-direction:column;gap:52px"></div>
 
   <footer>매주 월요일 아침에 지난주(월~일) 기사와 최신 순위로 업데이트됩니다. 요약은 각 웹진 기사를 바탕으로 직접 작성했으며, 자세한 내용은 기사 제목을 눌러 원문에서 확인하시기 바랍니다.</footer>
@@ -1146,8 +1162,6 @@ $('#pAsof').textContent = p.asof + ' 기준';
 $('#pList').innerHTML = p.list.map(r => `<li><span class="n">${r[0]}</span>${chg(p, r)}<span class="g">${esc(r[1])}</span><span class="k">${esc(r[2])}</span></li>`).join('');
 renderMobile();
 
-$('#weeknav').innerHTML = D.weeks.length > 1 ? '<span>주차</span>' + D.weeks.map(w => `<a href="#${esc(w.id)}">${esc(w.label)}</a>`).join('') : '';
-$('#weeknav').hidden = D.weeks.length < 2;
 
 $('#weeks').innerHTML = D.weeks.map(w => {
   const cats = CATS.map(([k, label]) => {
@@ -1163,6 +1177,42 @@ $('#weeks').innerHTML = D.weeks.map(w => {
     ${(w.summary||[]).length ? `<div class="digest" id="${esc(w.id)}-sum"><b class="dh">이번 주 요약</b><dl>${w.summary.map(sumRow).join('')}</dl></div>` : ''}
     ${cats}</section>`;
 }).join('');
+
+// 주차 넘기기: D.weeks는 최신 주차가 0번, 왼쪽(←)이 지난주
+const secs = [...document.querySelectorAll('#weeks > section.week')];
+let wi = Math.max(0, D.weeks.findIndex(w => location.hash.slice(1).startsWith(w.id)));
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+function showWeek(i, dx, scroll){
+  if (i < 0 || i >= secs.length) return;
+  wi = i;
+  secs.forEach((s, k) => { s.hidden = k !== i; s.classList.remove('slide'); });
+  if (dx) { const s = secs[i]; s.style.setProperty('--dx', dx + 'px'); void s.offsetWidth; s.classList.add('slide'); }
+  const w = D.weeks[i];
+  $('#wNow').textContent = w.label + ' · ' + w.range;
+  $('#wPrev').disabled = i >= secs.length - 1;
+  $('#wNext').disabled = i <= 0;
+  $('#wDots').innerHTML = secs.length > 1 ? D.weeks.map((x, k) => `<button type="button" data-week="${k}" aria-label="${esc(x.label)}" aria-current="${k === i}"></button>`).join('') : '';
+  const old = $('#weeks .wnext'); if (old) old.remove();
+  if (i < secs.length - 1) secs[i].insertAdjacentHTML('beforeend', `<div class="wnext"><button type="button" class="wbtn" data-week="${i + 1}">← ${esc(D.weeks[i + 1].label)} 기사 보기</button></div>`);
+  if (dx || scroll) history.replaceState(null, '', '#' + w.id);
+  if (scroll) $('#weeknav').scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block: 'start'});
+}
+$('#wPrev').addEventListener('click', () => showWeek(wi + 1, -40));
+$('#wNext').addEventListener('click', () => showWeek(wi - 1, 40));
+document.addEventListener('click', e => { const b = e.target.closest('[data-week]'); if (!b) return; const k = +b.dataset.week; showWeek(k, k > wi ? -40 : 40, !!b.closest('.wnext')); });
+let tx = null, ty = 0;
+$('#weeks').addEventListener('touchstart', e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, {passive: true});
+$('#weeks').addEventListener('touchend', e => {
+  if (tx == null) return; const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty; tx = null;
+  if (Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+  if (dx > 0) showWeek(wi + 1, -40); else showWeek(wi - 1, 40);
+}, {passive: true});
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input,textarea,select,[contenteditable]') || e.altKey || e.ctrlKey || e.metaKey) return;
+  const r = $('#weeks').getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight) return;
+  if (e.key === 'ArrowLeft') showWeek(wi + 1, -40); else if (e.key === 'ArrowRight') showWeek(wi - 1, 40);
+});
+showWeek(wi);
 })();
 </script>
 <div class="ntoast" id="ntoast" role="status" aria-live="polite"></div>
