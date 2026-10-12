@@ -57,10 +57,14 @@ h1{font-size:clamp(28px,6vw,38px);font-weight:750;letter-spacing:-.04em;line-hei
 ol.rl{list-style:none;margin:0;padding:0;font-variant-numeric:tabular-nums}
 ol.rl.cols{columns:3 200px;column-gap:28px}
 ol.rl.cols2{columns:2 200px;column-gap:28px}
-ol.rl li{display:grid;grid-template-columns:26px minmax(0,1fr) auto;gap:8px;align-items:baseline;padding:6px 0;border-bottom:1px solid var(--soft);font-size:14px;break-inside:avoid}
+ol.rl li{display:grid;grid-template-columns:26px 30px minmax(0,1fr) auto;gap:8px;align-items:baseline;padding:6px 0;border-bottom:1px solid var(--soft);font-size:14px;break-inside:avoid}
 ol.rl .n{font-weight:700;color:var(--muted);font-size:13px}
 ol.rl .g{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 ol.rl .k{font-size:11.5px;color:var(--muted);white-space:nowrap}
+ol.rl .ch{font-size:11px;font-weight:700;white-space:nowrap;color:var(--muted)}
+ol.rl .ch.up{color:#e0473e}ol.rl .ch.dn{color:#2f7be0}ol.rl .ch.nw{color:var(--accent);font-size:10px;letter-spacing:.02em}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) ol.rl .ch.up{color:#ff6b62}:root:not([data-theme="light"]) ol.rl .ch.dn{color:#5ea2ff}}
+:root[data-theme="dark"] ol.rl .ch.up{color:#ff6b62}:root[data-theme="dark"] ol.rl .ch.dn{color:#5ea2ff}
 ol.rl li.hl .g{font-weight:700}
 ol.rl li.hl .n,ol.rl li.hl .k{color:var(--cc);font-weight:700}
 .note{font-size:12px;color:var(--muted);margin:0;line-height:1.55}
@@ -173,15 +177,16 @@ footer{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padd
 {
  "weeks": [
   {
-   "id": "w20261009",
+   "id": "w20261011",
    "label": "10월 2주차",
    "range": "2026.10.05 – 10.12",
    "summary": [
-    "MMORPG: **도깨비의세계**가 인기 1위에 이어 출시 나흘 만에 **구글플레이 매출 2위**까지 올랐습니다. 엔씨 **아이온 2**는 글로벌 첫날 **스팀 동접 약 40만 명**을 기록했고, 넥슨은 신작 **템빨: 오버기어드**의 개발 방향을 공개했습니다.",
-    "수집형 RPG: **니케 할로윈 업데이트**, **원신 6주년 한정 캐릭터 선택권**에 이어 **카제나 1주년 특별 방송**이 열렸고, **에픽세븐**은 **10월 29일 스팀 정식 출시**를 확정했습니다.",
-    "모바일 · 기타: **레인보우 식스 모바일**이 **2027년 1월 15일 서비스 종료**를 발표했고, 사전예약 4,000만 명을 모은 **애니모**가 출시되었습니다.",
-    "PC · 콘솔: **에이스 컴뱃 8**이 출시 일주일 만에 **100만 장**을 넘었고, 밸브 **데드록**은 정식 출시 전인데도 **동접 26만 명**을 돌파했습니다. **팬텀 블레이드 제로(10월 29일)**, **왈츠 앤 잼(12월 3일)** 출시일도 공개되었습니다.",
-    "순위: 10월 12일 기준 구글플레이 매출 1·2위는 **제우스: 오만의 신**과 **도깨비의세계**이고, 리니지M이 3위로 내려갔습니다. 순위표 46위 안에 **MMORPG 9종**, **수집형 RPG 3종**이 들어 있습니다."
+    "MMORPG: **도깨비의세계**가 출시 직후 양대 마켓 인기 1위에 이어 **구글플레이 매출 2위**까지 올랐고, 엔씨 **아이온 2**는 글로벌 첫날 스팀 동접 약 40만 명을 기록했습니다. 모바일 신작 **씰M2**는 **10월 22일** 출시를 앞두고 있습니다.",
+    "수집형 RPG: **카제나**가 1주년을 맞아 **10월 21일 시즌 5**와 12월 2인 협동 콘텐츠를 예고했고, **에픽세븐**은 **10월 29일 스팀 정식 출시**를 확정했습니다. **원신 6주년** 한정 캐릭터 선택권 등 시즌 이벤트도 이어졌습니다.",
+    "모바일 · 기타: **레인보우 식스 모바일**이 **2027년 1월 15일** 서비스 종료를 발표했고, 사전예약 4,000만 명을 모은 **애니모**가 출시되었습니다.",
+    "PC · 콘솔: **에이스 컴뱃 8**이 시리즈 최단 기간 **100만 장**을 넘겼고, 밸브 **데드록**은 정식 출시 전인데도 **동접 26만 명**을 돌파했습니다. **팬텀 블레이드 제로(10월 29일)** 등 하반기 출시 일정도 이어졌습니다.",
+    "업계 · 행사: Xbox가 영화·상품을 맡는 **XP 부문**을 신설하고 **모장 CEO**를 교체했고, 데브시스터즈는 **쿠키런 장편 애니메이션**(2029년 개봉 목표) 제작에 들어갔습니다.",
+    "순위: 10월 12일 기준 구글플레이 매출 1·2위는 **제우스: 오만의 신**과 **도깨비의세계**(9일 14위 → 2위)이고, 리니지M은 3위로 내려갔습니다. 순위표 46위 안에 **MMORPG 10종**, **수집형 RPG 3종**이 들어 있습니다."
    ],
    "items": [
     {
@@ -231,6 +236,15 @@ footer{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padd
     },
     {
      "cat": "mmo",
+     "src": "인벤",
+     "date": "10.08",
+     "tag": "모바일",
+     "title": "씰M2, 10월 22일 출시 앞두고 프리뷰 공개",
+     "url": "https://www.inven.co.kr/webzine/news/?news=321872",
+     "sum": "플레이위드코리아가 원작 씰온라인을 새 그래픽으로 되살린 모바일 MMORPG의 프리뷰 영상을 공개했습니다. 파티 던전과 필드 보스, 펫·코스튬 육성 등을 갖추고 10월 22일 출시됩니다."
+    },
+    {
+     "cat": "mmo",
      "src": "디스이즈게임",
      "date": "10월 초",
      "tag": "모바일",
@@ -252,9 +266,9 @@ footer{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padd
      "src": "인벤",
      "date": "10.10",
      "tag": "멀티",
-     "title": "카제나 1주년 특별 방송, 2인 협동 콘텐츠 예고",
+     "title": "카제나 1주년, 시즌 5와 2인 협동 콘텐츠 예고",
      "url": "https://www.inven.co.kr/webzine/news/?news=321938",
-     "sum": "수집형 로그라이크 덱빌딩 RPG '카오스 제로 나이트메어'가 1주년 방송에서 굿즈·기부 이벤트와 전반적인 개선, 2인 협동 콘텐츠를 예고했습니다."
+     "sum": "카오스 제로 나이트메어가 1주년 방송에서 10월 21일 시즌 5 개막과 신규 전투원 3종을 발표했습니다. 2인 협동 콘텐츠는 12월에 추가되며, 이벤트 수익 일부를 결식아동에게 기부하는 행사도 진행합니다."
     },
     {
      "cat": "gacha",
@@ -339,6 +353,15 @@ footer{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padd
     },
     {
      "cat": "mobile",
+     "src": "인벤",
+     "date": "10.08",
+     "tag": "대전",
+     "title": "브롤스타즈, 3주간 주간 브롤돌 프로젝트 시작",
+     "url": "https://www.inven.co.kr/webzine/news/?news=321870",
+     "sum": "슈퍼셀이 K-POP 아이돌을 매주 커뮤니티 매니저로 내세우는 협업 이벤트를 10월 30일까지 진행합니다. 국내 이용자층을 겨냥한 장기 마케팅 사례로 볼 수 있습니다."
+    },
+    {
+     "cat": "mobile",
      "src": "디스이즈게임",
      "date": "10월 초",
      "tag": "신작",
@@ -368,10 +391,10 @@ footer{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padd
      "cat": "pc",
      "src": "인벤",
      "date": "10.10",
-     "tag": "판매",
+     "tag": "콘솔·PC",
      "title": "에이스 컴뱃 8, 시리즈 최단 기간 100만 장 돌파",
      "url": "https://www.inven.co.kr/webzine/news/?news=321939",
-     "sum": "10월 2일 출시 후 일주일 만에 전 세계 판매량 100만 장을 넘기며 시리즈 최단 기록을 세웠습니다."
+     "sum": "반다이남코의 비행 슈팅 신작이 출시 약 일주일 만에 판매량 100만 장을 넘겼습니다. 시리즈 역사상 가장 빠른 기록입니다."
     },
     {
      "cat": "pc",
@@ -453,6 +476,15 @@ footer{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padd
      "title": "넥슨 '데이브 더 다이버' × 크래프톤 '서브노티카 2'",
      "url": "https://www.inven.co.kr/webzine/news/?news=321921",
      "sum": "두 회사 산하 스튜디오의 해양 게임 IP가 만나며, 데이브 더 다이버에 서브노티카 2 콘텐츠 팩이 무료 업데이트될 예정입니다."
+    },
+    {
+     "cat": "biz",
+     "src": "인벤",
+     "date": "10.09",
+     "tag": "업계",
+     "title": "Xbox, 신규 부문 XP 신설하고 모장 CEO 교체",
+     "url": "https://www.inven.co.kr/webzine/news/?news=321924",
+     "sum": "Xbox가 영화·상품·현장 행사를 맡는 XP 부문을 만들고 모장 대표였던 케일린 월터스에게 이끌게 했습니다. 마인크래프트를 만드는 모장은 메타 출신 마리아 안겔리두 스미스가 새 CEO를 맡습니다."
     },
     {
      "cat": "biz",
@@ -598,7 +630,7 @@ footer{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padd
     [
      24,
      "로그W: 리메인즈 오브 갓",
-     "확인 필요"
+     "MMORPG"
     ],
     [
      25,
@@ -710,6 +742,189 @@ footer{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padd
      "브롤스타즈",
      "대전"
     ]
+   ],
+   "prevAsof": "2026.10.09",
+   "prev": [
+    [
+     1,
+     "제우스: 오만의 신"
+    ],
+    [
+     2,
+     "리니지M"
+    ],
+    [
+     3,
+     "이클립스: 더 어웨이크닝"
+    ],
+    [
+     4,
+     "WOS: 화이트아웃 서바이벌"
+    ],
+    [
+     5,
+     "킹샷"
+    ],
+    [
+     6,
+     "로블록스"
+    ],
+    [
+     7,
+     "가십하버"
+    ],
+    [
+     8,
+     "로얄 매치"
+    ],
+    [
+     9,
+     "메이플 키우기"
+    ],
+    [
+     10,
+     "솔: 인챈트"
+    ],
+    [
+     11,
+     "명조: 워더링 웨이브"
+    ],
+    [
+     12,
+     "운빨존많겜"
+    ],
+    [
+     13,
+     "오딘: 발할라 라이징"
+    ],
+    [
+     14,
+     "도깨비의세계"
+    ],
+    [
+     15,
+     "한게임포커 클래식"
+    ],
+    [
+     16,
+     "라스트 워: 서바이벌"
+    ],
+    [
+     17,
+     "트릭컬 리바이브"
+    ],
+    [
+     18,
+     "후더덕 서바이벌"
+    ],
+    [
+     19,
+     "열혈강호: 넥스트"
+    ],
+    [
+     20,
+     "테이스티 트레블"
+    ],
+    [
+     21,
+     "승리의 여신: 니케"
+    ],
+    [
+     22,
+     "탑 로드"
+    ],
+    [
+     23,
+     "FC 모바일"
+    ],
+    [
+     24,
+     "로그W: 리메인즈 오브 갓"
+    ],
+    [
+     25,
+     "삼국지: 천하결전"
+    ],
+    [
+     26,
+     "꿈의 정원"
+    ],
+    [
+     27,
+     "씨사이드 익스케이프"
+    ],
+    [
+     28,
+     "컴투스프로야구V26"
+    ],
+    [
+     29,
+     "라스트 어사일럼: 페스트"
+    ],
+    [
+     30,
+     "로얄 킹덤"
+    ],
+    [
+     31,
+     "피망 포커"
+    ],
+    [
+     32,
+     "라스트 Z: 서바이벌 슈터"
+    ],
+    [
+     33,
+     "Pokémon GO"
+    ],
+    [
+     34,
+     "아쿠아랜드: 크레이지 서바이벌"
+    ],
+    [
+     35,
+     "냥코 대전쟁"
+    ],
+    [
+     36,
+     "할리우드 머지"
+    ],
+    [
+     37,
+     "쿠키런 키우기"
+    ],
+    [
+     38,
+     "협타디: 협동 타워 디펜스"
+    ],
+    [
+     39,
+     "리니지W"
+    ],
+    [
+     40,
+     "마비노기 모바일"
+    ],
+    [
+     41,
+     "미스터리 타운"
+    ],
+    [
+     42,
+     "뚜까펫: 서바이벌"
+    ],
+    [
+     43,
+     "브롤스타즈"
+    ],
+    [
+     44,
+     "FC 온라인 M"
+    ],
+    [
+     45,
+     "캔디크러쉬사가"
+    ]
    ]
   },
   "pc": {
@@ -765,7 +980,50 @@ footer{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padd
      "스타크래프트",
      "1.7%"
     ]
-   ]
+   ],
+   "prev": [
+    [
+     1,
+     "리그 오브 레전드"
+    ],
+    [
+     2,
+     "발로란트"
+    ],
+    [
+     3,
+     "FC온라인"
+    ],
+    [
+     4,
+     "배틀그라운드"
+    ],
+    [
+     5,
+     "오버워치"
+    ],
+    [
+     6,
+     "리니지 클래식"
+    ],
+    [
+     7,
+     "서든어택"
+    ],
+    [
+     8,
+     "메이플스토리"
+    ],
+    [
+     9,
+     "Roblox"
+    ],
+    [
+     10,
+     "로스트아크"
+    ]
+   ],
+   "prevAsof": "2026.10.07"
   }
  }
 }
@@ -869,6 +1127,7 @@ footer{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padd
 const D = JSON.parse(document.getElementById('briefing-data').textContent);
 const CATS = [['mmo','MMORPG'],['gacha','수집형 RPG'],['mobile','모바일 · 기타 장르'],['pc','PC · 콘솔'],['biz','업계 · 행사']];
 const HL = {'MMORPG':'c-mmo','수집형':'c-gacha'};
+function chg(rk, r){ if (!rk || !rk.prev || !rk.prev.length) return '<span class="ch"></span>'; const pm = {}; rk.prev.forEach(x => pm[x[1]] = x[0]); const was = pm[r[1]], t = esc((rk.prevAsof||'') + ' 대비'); if (was == null) return `<span class="ch nw" title="${t} 새로 진입">NEW</span>`; const d = was - r[0]; if (d > 0) return `<span class="ch up" title="${t} ${d}계단 상승">▲${d}</span>`; if (d < 0) return `<span class="ch dn" title="${t} ${-d}계단 하락">▼${-d}</span>`; return `<span class="ch" title="${t} 변동 없음">–</span>`; }
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
@@ -880,11 +1139,11 @@ function renderMobile(){
   $('#mAsof').textContent = m.asof + ' 기준';
   $('#mSrc').href = m.url || 'https://www.mobileindex.com';
   $('#mList').innerHTML = m.list.map(r =>
-    `<li class="${HL[r[2]] ? 'hl ' + HL[r[2]] : ''}"><span class="n">${r[0]}</span><span class="g">${esc(r[1])}</span><span class="k">${esc(r[2])}</span></li>`).join('');
+    `<li class="${HL[r[2]] ? 'hl ' + HL[r[2]] : ''}"><span class="n">${r[0]}</span>${chg(m, r)}<span class="g">${esc(r[1])}</span><span class="k">${esc(r[2])}</span></li>`).join('');
 }
 const p = D.ranks.pc;
 $('#pAsof').textContent = p.asof + ' 기준';
-$('#pList').innerHTML = p.list.map(r => `<li><span class="n">${r[0]}</span><span class="g">${esc(r[1])}</span><span class="k">${esc(r[2])}</span></li>`).join('');
+$('#pList').innerHTML = p.list.map(r => `<li><span class="n">${r[0]}</span>${chg(p, r)}<span class="g">${esc(r[1])}</span><span class="k">${esc(r[2])}</span></li>`).join('');
 renderMobile();
 
 $('#weeknav').innerHTML = D.weeks.length > 1 ? '<span>주차</span>' + D.weeks.map(w => `<a href="#${esc(w.id)}">${esc(w.label)}</a>`).join('') : '';
